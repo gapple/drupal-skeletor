@@ -15,10 +15,18 @@
 
 DIRS="modules/contrib themes/contrib libraries/contrib"
 for d in $DIRS; do
-  rm -Rf "$d.bak.tar.gz"
-  mv $d "$d.bak"
-  tar cvzf "$d.bak.tar.gz" "$d.bak"
-  rm -Rf "$d.bak"
+  if [ -a "$d.bak.tar.gz" ]
+  then
+    rm -Rf "$d.bak.tar.gz"
+    echo "Old $d.bak.tar.gz deleted"
+  fi
+  if [ -a $d ]
+  then
+    mv $d "$d.bak"
+    tar czf "$d.bak.tar.gz" "$d.bak"
+    rm -Rf "$d.bak"
+    echo "Archived $d to $d.bak.tar.gz"
+  fi
 done
 drush make --yes --working-copy --no-core --contrib-destination=. drupal-org.make
 
