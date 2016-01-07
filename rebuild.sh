@@ -15,14 +15,14 @@
 
 DIRS="modules/contrib themes/contrib libraries/contrib"
 for d in $DIRS; do
-  if [ -a "$d.bak.tar.gz" ]
+  if [ -e "$d.bak.tar.gz" ]
   then
-    rm -Rf "$d.bak.tar.gz"
+    rm -f "$d.bak.tar.gz"
     echo "Old $d.bak.tar.gz deleted"
   fi
-  if [ -a $d ]
+  if [ -e "$d" ]
   then
-    mv $d "$d.bak"
+    mv "$d" "$d.bak"
     tar czf "$d.bak.tar.gz" "$d.bak"
     rm -Rf "$d.bak"
     echo "Archived $d to $d.bak.tar.gz"
