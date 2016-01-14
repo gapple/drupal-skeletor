@@ -83,7 +83,7 @@ do
   if [[ -d $THEME ]]; then
     cd $THEME
     if [ -a config.rb ]; then
-      compass compile
+      compass compile -e production
     fi
   fi
 done
