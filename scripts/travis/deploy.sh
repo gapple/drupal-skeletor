@@ -17,7 +17,7 @@ echo "::Deploying"
 git config --global user.email "travis@myplanet.com"
 git config --global user.name  "Travis CI - $ACQUIA_PROJECT"
 
-git clone --depth=1 -b $DEPLOY_BRANCH $DEPLOY_REPO $DEPLOY_DEST
+git clone -b $DEPLOY_BRANCH --single-branch $DEPLOY_REPO $DEPLOY_DEST
 rsync -a $PROJECT_ROOT/ $DEPLOY_DEST --exclude .git --delete
 
 cd $DEPLOY_DEST
