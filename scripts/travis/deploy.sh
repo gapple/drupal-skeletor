@@ -10,6 +10,9 @@ fi
 
 echo "::Deploying"
 
+# Message needs to be determined while still in source repo directory.
+PULL_REQUEST_MESSAGE=$(git log -n 1 --pretty=format:%s $TRAVIS_COMMIT)
+
 # Note that you should have exported the Travis Repo SSH pub key, and
 # added it into the deploy server keys list.
 
@@ -24,9 +27,10 @@ cd $DEPLOY_DEST
 echo "::Adding new files."
 git add --all .
 
-PULL_REQUEST_MESSAGE=$(git log -n 1 --pretty=format:%s $TRAVIS_COMMIT)
+echo "::Creating commit."
 git commit -m "${PULL_REQUEST_MESSAGE}
 
 Commit ${TRAVIS_COMMIT}"
 
-git push origin $DEPLOY_BRANCH
+echo "::Pushing to Acquia repository."
+git push --progress origin $DEPLOY_BRANCH
